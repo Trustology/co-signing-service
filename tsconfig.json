@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "build",
+    "strict": true,
+    "target": "es2017",
+    "typeRoots": ["node_modules/@types"],
+    "esModuleInterop": true,
+    "declaration": true
+  },
+  "include": ["src/*.ts"]
+}

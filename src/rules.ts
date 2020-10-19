@@ -1,0 +1,108 @@
+import { AllWebhookMessages } from "@Trustology/trust-vault-nodejs-sdk";
+import {
+  isBitcoinTransactionWebhook,
+  isEthereumTransactionWebhook,
+} from "./utils";
+
+export enum RuleResult {
+  FAIL = "FAIL",
+  RETRY = "RETRY",
+  PASS = "PASS",
+}
+
+/**
+ * The Rule interface is responsible for determining whether the transaction should be signed and submitted.
+ * The logic to approve the transaction is completely up to you
+ * @validateRule - given the webhook payload, determine whether the webhook event should be signed by returning true or false
+ */
+export interface Rule {
+  validateRule: (webhook: AllWebhookMessages) => Promise<RuleResult>;
+}
+
+export class AllRule implements Rule {
+  private rules: Rule[];
+  constructor(...rules: Rule[]) {
+    if (rules.length === 0) {
+      throw new Error("Must pass in at least one rule");
+    }
+    this.rules = rules;
+  }
+
+  public async validateRule(webhook: AllWebhookMessages) {
+    let result: RuleResult = RuleResult.PASS;
+    let i = 0;
+    while (result !== RuleResult.FAIL && i < this.rules.length) {
+      const response = await this.rules[i++].validateRule(webhook);
+      if (result === RuleResult.PASS) {
+        result = response;
+      } else {
+        // RETRY
+        result =
+          response === RuleResult.FAIL ? RuleResult.FAIL : RuleResult.RETRY;
+      }
+    }
+
+    return result;
+  }
+}
+
+export class AnyRule implements Rule {
+  private rules: Rule[];
+  constructor(...rules: Rule[]) {
+    if (rules.length === 0) {
+      throw new Error("Must pass in at least one rule");
+    }
+    this.rules = rules;
+  }
+  public async validateRule(webhook: AllWebhookMessages) {
+    let result: RuleResult = RuleResult.FAIL;
+    let i = 0;
+    while (result !== RuleResult.PASS && i < this.rules.length) {
+      const response = await this.rules[i++].validateRule(webhook);
+      if (result === RuleResult.FAIL) {
+        result = response;
+      } else {
+        // RETRY
+        result =
+          response === RuleResult.PASS ? RuleResult.PASS : RuleResult.RETRY;
+      }
+    }
+
+    return result;
+  }
+}
+
+/**
+ *
+ */
+export class AssetRule implements Rule {
+  constructor(private ethRule: Rule, private btcRule: Rule) {}
+
+  public async validateRule(webhook: AllWebhookMessages) {
+    if (isEthereumTransactionWebhook(webhook)) {
+      return this.ethRule.validateRule(webhook);
+    } else if (isBitcoinTransactionWebhook(webhook)) {
+      return this.btcRule.validateRule(webhook);
+    } else {
+      return RuleResult.FAIL;
+    }
+  }
+}
+
+export class AlwaysFalseRule implements Rule {
+  public async validateRule(webhook: AllWebhookMessages) {
+    return RuleResult.FAIL;
+  }
+}
+
+export class AlwaysTrueRule implements Rule {
+  public async validateRule(webhook: AllWebhookMessages) {
+    return RuleResult.PASS;
+  }
+}
+
+export class AlwaysRetryRule implements Rule {
+  public async validateRule(webhook: AllWebhookMessages) {
+    return RuleResult.RETRY;
+  }
+}
