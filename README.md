@@ -37,14 +37,15 @@ This example code showcases:
 The steps that you are required to do are:
 
 - create your own set of rules which define under what conditions your webhook events are signed
-- create your own key store which will sign data using the private key securely stored in you key management service (we recommend you use [AWS KMS](https://aws.amazon.com/kms/)
+- create your own key store which will sign data using the private key securely stored in you key management service (we recommend you use [AWS KMS](https://aws.amazon.com/kms/))
 
 ## Preliminary steps
 
 To begin using the co-signing-service immediately you would need to have already done the following:
 
-- Sign up for [API Access](https://developer.trustology.io/onboarding.html) and get your API key
-- Have created your own private public key pair and [updated the relevant wallet policies](https://developer.trustology.io/change-policy.html).
+- Sign up for [API Access](https://developer.trustology.io/api-onboarding.html) and get your API key
+- Have created your own external instruction key pair and [updated the relevant wallet policies](https://developer.trustology.io/change-policy-api.html).
+- [contact us](help@trustology.io) for help
 
 For more information see [Getting Started](https://developer.trustology.io/getting-started.html)
 
