@@ -1,9 +1,10 @@
-import { AllWebhookMessages } from "@Trustology/trust-vault-nodejs-sdk";
+import { AllWebhookMessages } from "@trustology/trustvault-nodejs-sdk";
 import {
   isBitcoinTransactionWebhook,
   isEthereumTransactionWebhook,
 } from "./utils";
 
+// The rules MUST return a value of this enum
 export enum RuleResult {
   FAIL = "FAIL",
   RETRY = "RETRY",
@@ -11,7 +12,7 @@ export enum RuleResult {
 }
 
 /**
- * The Rule interface is responsible for determining whether the transaction should be signed and submitted.
+ * The example Rule interface is responsible for determining whether the transaction should be signed and submitted.
  * The logic to approve the transaction is completely up to you
  * @validateRule - given the webhook payload, determine whether the webhook event should be signed by returning true or false
  */
@@ -19,6 +20,10 @@ export interface Rule {
   validateRule: (webhook: AllWebhookMessages) => Promise<RuleResult>;
 }
 
+/*
+ * All rules passed to this rule must `PASS` for this rule to `PASS`
+ *
+ */
 export class AllRule implements Rule {
   private rules: Rule[];
   constructor(...rules: Rule[]) {
@@ -46,6 +51,9 @@ export class AllRule implements Rule {
   }
 }
 
+/**
+ * Any of the rules passed in must `PASS` for this rule to `PASS`
+ */
 export class AnyRule implements Rule {
   private rules: Rule[];
   constructor(...rules: Rule[]) {
@@ -73,7 +81,8 @@ export class AnyRule implements Rule {
 }
 
 /**
- *
+ * You can pass a specific rule for ETH and one for BTC. The correct rule is evaulated based on the webhook asset type.
+ * i.e if called with a BTC webhook the BTC rule is applied
  */
 export class AssetRule implements Rule {
   constructor(private ethRule: Rule, private btcRule: Rule) {}
@@ -89,18 +98,27 @@ export class AssetRule implements Rule {
   }
 }
 
+/**
+ * Always return `FAIL`
+ */
 export class AlwaysFalseRule implements Rule {
   public async validateRule(webhook: AllWebhookMessages) {
     return RuleResult.FAIL;
   }
 }
 
+/**
+ * Always return `PASS`
+ */
 export class AlwaysTrueRule implements Rule {
   public async validateRule(webhook: AllWebhookMessages) {
     return RuleResult.PASS;
   }
 }
 
+/**
+ * Always return `RETRY`
+ */
 export class AlwaysRetryRule implements Rule {
   public async validateRule(webhook: AllWebhookMessages) {
     return RuleResult.RETRY;

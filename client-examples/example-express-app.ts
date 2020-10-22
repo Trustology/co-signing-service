@@ -1,4 +1,9 @@
-import { AllWebhookMessages, AwsKmsKeyStore, SignDataBuffer, TrustVault } from "@Trustology/trust-vault-nodejs-sdk";
+import {
+  AllWebhookMessages,
+  AwsKmsKeyStore,
+  SignDataBuffer,
+  TrustVault,
+} from "@trustology/trustvault-nodejs-sdk";
 import bodyParser from "body-parser";
 import express, { Request, Response } from "express";
 import { RuleResult } from "../src/rules";
@@ -37,7 +42,7 @@ app.post("/co-sign", async (req: Request<any, any, AllWebhookMessages>, res: Res
     // instantiate the trustvault SDK
     const trustVault = new TrustVault({ apiKey: getApiKey() });
     // validate the webhook was sent by TrustVault using the SDK. This will throw an error if it is not valid.
-    trustVault.validateWebhookSignature(JSON.stringify(webhookMessage), getWebhookSecret(), xSignature);
+    TrustVault.validateWebhookSignature(JSON.stringify(webhookMessage), getWebhookSecret(), xSignature);
     console.info(`Webhook validation succeeded, responding 200 to the webhook`);
     // the webhook is correct thus return 200 now to stop the webhook service retrying
     res.send({ status: 200 });

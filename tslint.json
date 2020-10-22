@@ -4,7 +4,7 @@
     "no-console": [true, "log"],
     "interface-name": [true, "never-prefix"],
     "no-implicit-dependencies": [true, "dev"],
-    "no-submodule-imports": [true, "aws-sdk"],
+    "no-submodule-imports": [true, "deployable", "aws-sdk"],
     "prefer-conditional-expression": false,
     "object-literal-sort-keys": false,
     "max-classes-per-file": false

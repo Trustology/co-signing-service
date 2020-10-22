@@ -3,7 +3,7 @@ import {
   BitcoinTransactionWebhookMessage,
   EthereumTransactionWebhookMessage,
   PolicyChangeRequestWebhookMessage,
-} from "@Trustology/trust-vault-nodejs-sdk";
+} from "@trustology/trustvault-nodejs-sdk";
 
 export const isEthereumTransactionWebhook = (
   webhook: AllWebhookMessages

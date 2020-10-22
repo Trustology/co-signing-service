@@ -2,7 +2,7 @@ import {
   BitcoinTransactionWebhookMessage,
   EthereumTransactionWebhookMessage,
   PolicyChangeRequestWebhookMessage,
-} from "@Trustology/trust-vault-nodejs-sdk";
+} from "@trustology/trustvault-nodejs-sdk";
 
 // example webhook payloads
 
