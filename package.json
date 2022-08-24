@@ -1,6 +1,6 @@
 {
   "name": "bitpandacustody-example-co-signing-service",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Example co-signing-service component that is designed to co-sign TrustVault transactions under a given set of rules.",
   "main": "./index.js",
   "types": "./index.d.ts",
