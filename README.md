@@ -13,7 +13,7 @@ TrustVault is the entry point for securely managing your customers’ or clients
 - Create Bitcoin receive addresses and view transactions on each address
 - Enforce whitelist withdrawal to your exchanges by signing up to the Exchange Service
 
-You can do all of the above via the [TrustVault iOS App](https://apps.apple.com/gb/app/trustvault/id1455959680) or the [TrustVault API](https://developer.trustology.io/trust-api/index.html). [Webhooks](https://developer.trustology.io/webhooks.html) can also be used to communicate with your system in an event based manner. You can read more about TrustVault [here](https://developer.trustology.io).
+You can do all of the above via the [TrustVault iOS App](https://apps.apple.com/gb/app/trustvault/id1455959680) or the [TrustVault API](https://developer.bitpandacustody.com/trust-api/index.html). [Webhooks](https://developer.bitpandacustody.com/webhooks.html) can also be used to communicate with your system in an event based manner. You can read more about TrustVault [here](https://developer.bitpandacustody.com).
 
 The co-signing service will use:
 
@@ -26,7 +26,7 @@ The purpose of the co-signing-service is is to showcase how you can easily creat
 
 This example code showcases:
 
-- verification of the webhook endpoint ([More on webhooks and verification](https://developer.trustology.io/webhooks.html#Webhook-Security))
+- verification of the webhook endpoint ([More on webhooks and verification](https://developer.bitpandacustody.com/webhooks.html#Webhook-Security))
 - creating the rules you would like to enforce
 - validating the transaction satisfies all rules
 - processing and submitting the transaction
@@ -43,11 +43,11 @@ The steps that you are required to do are:
 
 To begin using the co-signing-service immediately you would need to have already done the following:
 
-- Sign up for [API Access](https://developer.trustology.io/api-onboarding.html) and get your API key
-- Have created your own external instruction key pair and [updated the relevant wallet policies](https://developer.trustology.io/change-policy-api.html).
-- [contact us](help@trustology.io) for help
+- Sign up for [API Access](https://developer.bitpandacustody.com/api-onboarding.html) and get your API key
+- Have created your own external instruction key pair and [updated the relevant wallet policies](https://developer.bitpandacustody.com/change-policy-api.html).
+- [contact us](help@bitpandacustody.com) for help
 
-For more information see [Getting Started](https://developer.trustology.io/getting-started.html)
+For more information see [Getting Started](https://developer.bitpandacustody.com/getting-started.html)
 
 ## Rules
 
@@ -59,7 +59,7 @@ The co-signing-service's purpose is to control and restrict the types of transac
 - Time Rules - Only allow transactions at certain times of the day (9:00 - 17:00)
 - Smart Contract Rules - Allow only certain types of smart contract calls with specific payloads
 
-Trustology is implementing their own set of common rules for you to use "out of the box". Contact us to integrate your own custom rules for you.
+Bitpanda Custody is implementing their own set of common rules for you to use "out of the box". Contact us to integrate your own custom rules for you.
 
 ## Example Express Server
 

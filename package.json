@@ -1,6 +1,6 @@
 {
-  "name": "trustology-example-co-signing-service",
-  "version": "1.0.1",
+  "name": "bitpandacustody-example-co-signing-service",
+  "version": "1.0.2",
   "description": "Example co-signing-service component that is designed to co-sign TrustVault transactions under a given set of rules.",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -20,7 +20,7 @@
     "type": "git",
     "url": "https://github.com/Trustology/co-signing-service.git"
   },
-  "author": "",
+  "author": "Bitpanda Custody",
   "license": "MIT",
   "devDependencies": {
     "@types/body-parser": "1.19.0",

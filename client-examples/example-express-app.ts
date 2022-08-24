@@ -12,7 +12,7 @@ import { getClientCustomRules } from "./example-client-rules";
 /**
  * This is an example server built with express that showcases how to use the TrustVault SDK combined with the TrustVault API and webhooks to automatically sign transactions given that they satisfy certain predefined conditions.
  * You can use this as a template to respond to webhook events and sign transactions that satisfy custom rules which you would like to have. From timestamp rules to smart contract rules, anything is possible.
- * For users that do not wish to implement their own rules then can contact Trustology and we will implement them into our internal implementation of the co-signing-service
+ * For users that do not wish to implement their own rules then can contact Bitpanda Custody and we will implement them into our internal implementation of the co-signing-service
  */
 const app = express();
 app.use(bodyParser.json());
@@ -20,9 +20,9 @@ const port = 3000;
 
 export const X_SHA2_SIGNATURE = "X-Sha2-Signature";
 
-// this is your TrustVault API key. It allows you to manage your wallets via the TrustVault API. To learn more about the TrustVault API then go to https://developer.trustology.io/index.html. To onboard as a API user and get an API key then go to https://developer.trustology.io/onboarding.html
+// this is your TrustVault API key. It allows you to manage your wallets via the TrustVault API. To learn more about the TrustVault API then go to https://developer.bitpandacustody.com/index.html. To onboard as a API user and get an API key then go to https://developer.bitpandacustody.com/onboarding.html
 const getApiKey = () => "API_KEY";
-// your webhook secret will be given to you by Trustology. To learn more about webhooks go to https://developer.trustology.io/webhooks.html. To register your account to receive webhooks then contact Trustology
+// your webhook secret will be given to you by Bitpanda Custody. To learn more about webhooks go to https://developer.bitpandacustody.com/webhooks.html. To register your account to receive webhooks then contact Bitpanda Custody
 const getWebhookSecret = () => "SECRET";
 // If you decide to use AWS KMS as your key management service then this can be the function which retrieves the alias of the key.
 const getKeyAlias = () => "AWS_KMS_KEY_ALIAS";
@@ -59,7 +59,7 @@ app.post("/co-sign", async (req: Request<any, any, AllWebhookMessages>, res: Res
       // sign the digests if the rules are satisfied (could take 20 seconds)
       await trustVault.signAndSubmitSignature(webhookMessage, (signData: SignDataBuffer) => {
         // we recommend you use AWS KMS for signing. However you can use any Implementation of the KeyStore class in the SDK.
-        // AwsKmsKeyStore is a wrapper class to ensure KMS is configured correctly for signing. @see Trustology github SDK: https://github.com/Trustology/trustvault-nodejs-sdk
+        // AwsKmsKeyStore is a wrapper class to ensure KMS is configured correctly for signing. @see Bitpanda Custody github SDK: https://github.com/Trustology/trustvault-nodejs-sdk
         return new AwsKmsKeyStore(getKeyAlias()).sign(signData);
       });
       console.info(`webhook successfully handled`);
